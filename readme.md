@@ -1,1 +1,1 @@
-Initialized by Azure Data Factory!
+This project showcases an end-to-end data pipeline built using Azure Data Factory and Azure Data Lake Storage Gen2. It extracts raw data from source files, loads it into the data lake, and applies transformations to prepare clean, structured data for analytics. The goal was to demonstrate efficient data movement, organization, and transformation within a cloud-based environment following best practices.Initialized by Azure Data Factory!
