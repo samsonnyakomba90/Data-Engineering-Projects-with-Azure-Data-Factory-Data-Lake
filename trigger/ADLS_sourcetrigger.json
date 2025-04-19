@@ -1,0 +1,24 @@
+{
+	"name": "ADLS_sourcetrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Parentpipeline",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/source/blobs/myFiles/item_dim.csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/5cd3e2cf-b461-43a5-a382-0e1cb03cfa70/resourceGroups/Rg-ADF-Project/providers/Microsoft.Storage/storageAccounts/datalakestorageadfsam",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"name": "Git_source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "httpGit_link",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "samsonnyakomba90/azure-data-factory-1/refs/heads/main/Trans_dim.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

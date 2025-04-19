@@ -1,0 +1,9 @@
+{
+	"name": "samADFProject",
+	"location": "southafricanorth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a68b6c5a-d7a2-4400-8f77-5ffcab728d1c",
+		"tenantId": "e471f015-dc23-41bb-ac78-835a60efccda"
+	}
+}

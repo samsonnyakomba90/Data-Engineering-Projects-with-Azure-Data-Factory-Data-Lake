@@ -1,0 +1,84 @@
+{
+	"name": "TransformItemCSV",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dataflowsource",
+						"type": "DatasetReference"
+					},
+					"name": "sourceCSV"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dataflow_target",
+						"type": "DatasetReference"
+					},
+					"name": "sink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectcols"
+				},
+				{
+					"name": "filterRows"
+				},
+				{
+					"name": "split1"
+				},
+				{
+					"name": "aggregate"
+				},
+				{
+					"name": "alterRows"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          item_key as string,",
+				"          item_name as string,",
+				"          desc as string,",
+				"          unit_price as double,",
+				"          man_country as string,",
+				"          supplier as string,",
+				"          unit as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourceCSV",
+				"sourceCSV select(mapColumn(",
+				"          item_key,",
+				"          item_name,",
+				"          unit_price,",
+				"          man_country,",
+				"          supplier,",
+				"          unit",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectcols",
+				"selectcols filter(unit_price!=6.0) ~> filterRows",
+				"filterRows split(man_country == 'United States',",
+				"     man_country == 'Netherlands',",
+				"     man_country == 'Germany',",
+				"     man_country == 'China',",
+				"     man_country == 'India',",
+				"     disjoint: false) ~> split1@(UnitedStates, Netherlands, Germany, China, India, otherThanUnitedStates)",
+				"split1@UnitedStates aggregate(groupBy(item_key),",
+				"     item_name = max(item_name)) ~> aggregate",
+				"aggregate alterRow(insertIf(1==1)) ~> alterRows",
+				"alterRows sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink"
+			]
+		}
+	}
+}
