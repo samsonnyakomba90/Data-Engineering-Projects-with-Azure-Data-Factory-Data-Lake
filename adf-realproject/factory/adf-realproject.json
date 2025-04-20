@@ -1,0 +1,9 @@
+{
+	"name": "adf-realproject",
+	"location": "southafricanorth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a31cb530-8b03-4ca3-9594-6c8607d4ce86",
+		"tenantId": "e471f015-dc23-41bb-ac78-835a60efccda"
+	}
+}
