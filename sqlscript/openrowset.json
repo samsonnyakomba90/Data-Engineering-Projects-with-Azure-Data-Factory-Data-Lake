@@ -1,0 +1,17 @@
+{
+	"name": "openrowset",
+	"properties": {
+		"content": {
+			"query": "----------------------\n--CREATE CREDENTIAL \n ----------------------  \n CREATE DATABASE SCOPED CREDENTIAL samcreds\n WITH\n    IDENTITY = 'Managed Identity'\n\n------------------------------\n--CREATE EXTERNAL DATA SOURCE\n ------------------------------     \n\nCREATE EXTERNAL DATA SOURCE raw_ext_source\nWITH\n(\n    LOCATION = 'https://synapsestoragesam.dfs.core.windows.net/raw',\n    CREDENTIAL = samcreds\n)\n\n------------------------------\n--CREATE EXTERNAL FILE FORMAT\n ------------------------------\n\nCREATE EXTERNAL FILE FORMAT csv_file_format\nWITH\n(\n    FORMAT_TYPE = DELIMITEDTEXT,\n    FORMAT_OPTIONS(\n                    PARSER_VERSION = '2.0',\n                    STRING_DELIMITER = ',',\n                    ENCODING = 'UTF8'\n    )\n)\n\n-- CREATE PARQUET FILE FORMAT --\nCREATE EXTERNAL FILE FORMAT parquet_format\nWITH\n(\n   FORMAT_TYPE = PARQUET,\n   DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec' \n)\n\n\n----------------------\n--OPENROWSET FUNCTION\n ----------------------\nSELECT\n    * \nFROM \n    OPENROWSET(\n        BULK 'revenue',\n        DATA_SOURCE = 'raw_ext_source',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    )\nAS QUERY1\n\n\n\n\n\n\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "samserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

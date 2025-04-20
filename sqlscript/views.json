@@ -1,0 +1,17 @@
+{
+	"name": "views",
+	"properties": {
+		"content": {
+			"query": "\n--- VIEWS ------\n\nCREATE VIEW revenue_view\nAS\nSELECT\n    * \nFROM \n    OPENROWSET(\n        BULK 'revenue',\n        DATA_SOURCE = 'raw_ext_source',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    )\nAS QUERY1\n\n\nSELECT * FROM revenue_view\n\nSELECT * FROM revenue_cetas\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "samserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

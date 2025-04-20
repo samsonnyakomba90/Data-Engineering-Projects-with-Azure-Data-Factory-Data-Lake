@@ -1,0 +1,17 @@
+{
+	"name": "POLYBASE_CTAS",
+	"properties": {
+		"content": {
+			"query": "\nCREATE EXTERNAL TABLE parquet_table\n(\n    Dealer_ID VARCHAR(3000),\n    Model_ID VARCHAR(3000),\n    Branch_ID VARCHAR(3000),\n    Date_ID VARCHAR(3000),\n    Units_Sold BIGINT,\n    Revenue BIGINT\n)\nWITH\n(\n    LOCATION = '/cetas_revenue',\n    DATA_SOURCE = raw_ext_source_abfss,\n    FILE_FORMAT = parquet_format\n)\n--- CTAS/POLYBASE------------\n\nCREATE TABLE poly_table\nWITH\n(\n    DISTRIBUTION = ROUND_ROBIN\n)\nAS\nSELECT * FROM parquet_table\n\nSELECT * FROM poly_table\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "samdedicatedpool",
+				"poolName": "samdedicatedpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

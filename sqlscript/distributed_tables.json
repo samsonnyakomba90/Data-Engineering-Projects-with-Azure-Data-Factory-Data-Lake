@@ -1,0 +1,17 @@
+{
+	"name": "distributed_tables",
+	"properties": {
+		"content": {
+			"query": "-- ROUND ROBIN TABLE --\n\nCREATE TABLE RR_table\n(\n    id INT,\n    name VARCHAR(500),\n    salary INT,\n    position VARCHAR(500)\n)\nWITH\n(\n    DISTRIBUTION = ROUND_ROBIN\n);\n\nINSERT INTO RR_table\nVALUES \n    (5,'Kathy',5500,'Data Engineer')\n    \nSELECT * FROM RR_table\n-------------------------------------------------------------------------\n-- REPLICATE TABLE --\n\nCREATE SCHEMA gold;\n\nCREATE TABLE gold.dim_product\n(\n    dim_key_prod INT,\n    prod_id INT,\n    prod_name VARCHAR(800)\n)\nWITH\n(\n    DISTRIBUTION = REPLICATE\n)\n\nINSERT INTO gold.dim_product\nVALUES \n    (1001,10,'coke')\n    \nSELECT * FROM gold.dim_product\n-------------------------------------------------------------------------\n-- HASH TABLE --\n\nCREATE TABLE gold.facttable\n(\n    dim_key_prod INT,\n    revenue INT,\n    cost INT\n)\nWITH\n(\n    DISTRIBUTION = HASH(dim_key_prod)\n);\n\nINSERT INTO gold.facttable\nVALUES \n    (1001,3000,50)\n    \nSELECT * FROM gold.facttable\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "samdedicatedpool",
+				"poolName": "samdedicatedpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

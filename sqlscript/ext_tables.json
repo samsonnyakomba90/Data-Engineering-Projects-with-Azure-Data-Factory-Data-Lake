@@ -1,0 +1,17 @@
+{
+	"name": "ext_tables",
+	"properties": {
+		"content": {
+			"query": "-- CREATE EXTERNAL TABLE --\n\nCREATE EXTERNAL TABLE revenue_ext_table\n(\n    Dealer_ID VARCHAR(3000),\n    Model_ID VARCHAR(3000),\n    Branch_ID VARCHAR(3000),\n    Date_ID VARCHAR(3000),\n    Units_Sold VARCHAR(3000),\n    Revenue VARCHAR(3000)\n)\nWITH\n(\n    LOCATION = 'revenue',\n    DATA_SOURCE = raw_ext_source,\n    FILE_FORMAT = csv_file_format\n)\n\nSELECT * FROM revenue_ext_table;\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "samserverless",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
